@@ -3,7 +3,6 @@ import { inter } from "../fonts";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { HeroUIProvider } from "@heroui/react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { NuqsAdapter } from "nuqs/adapters/next";

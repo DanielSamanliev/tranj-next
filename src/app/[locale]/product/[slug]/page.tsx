@@ -16,7 +16,7 @@ async function getProduct(locale: string, slug: string) {
   const result = await gqlRequestStrapi(
     GET_PRODUCT_BY_SLUG,
     { locale, slug },
-    ProductQuerySchema
+    ProductQuerySchema,
   );
 
   if (result.products.length === 0) {
@@ -63,12 +63,12 @@ export default async function ProductPage({
             <h1 className="font-[Playfair] text-4xl md:text-5xl font-black text-foreground mb-4">
               {product.title}
             </h1>
-            <p className="font-inter text-xl text-muted-foreground mb-6">
+            <h2 className="font-inter text-xl text-muted-foreground mb-6">
               {product.description}
-            </p>
-            <p className="font-inter text-foreground mb-8 leading-relaxed">
+            </h2>
+            <h3 className="font-inter text-foreground mb-8 leading-relaxed">
               {product.longDescription}
-            </p>
+            </h3>
 
             <div className="flex items-center gap-6 mb-8">
               <span className="font-[Playfair] text-5xl font-bold text-accent">
@@ -82,9 +82,9 @@ export default async function ProductPage({
         </div>
 
         <div>
-          <h2 className="font-playfair text-3xl font-bold text-foreground mb-6">
+          <div className="font-playfair text-3xl font-bold text-foreground mb-6">
             {tCommon("prepMethods")}
-          </h2>
+          </div>
           <div className="grid md:grid-cols-3 gap-6">
             {product.prepMethods?.map((method) => (
               <div

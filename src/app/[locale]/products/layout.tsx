@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 
@@ -22,7 +23,7 @@ export default async function ProductsLayout({
           {t("subtitle")}
         </h2>
 
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<Loader />}>{children}</Suspense>
       </div>
     </main>
   );

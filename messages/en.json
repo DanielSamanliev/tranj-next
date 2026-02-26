@@ -43,7 +43,11 @@
     "emailPlaceholder": "Enter your email",
     "questionLabel": "Question",
     "questionPlaceholder": "What would you like to ask our butcher?",
-    "submitButton": "Submit Question"
+    "submitButton": "Submit Question",
+    "previouslyAskedQuestions": "Previously Asked Questions",
+    "fillAllFields": "Please fill in all fields.",
+    "successMessage": "Your question has been submitted successfully!",
+    "errorMessage": "Something went wrong. Please try again."
   },
   "nav": {
     "home": "Home",
@@ -113,35 +117,26 @@
       "description": "Get in touch with us for inquiries, orders, or additional information. We are here to help!"
     }
   },
-  "admin": {
-    "products": {
-      "title": "Products",
-      "addProduct": "Add Product",
-      "noProducts": "No products available.",
-      "editProduct": "Edit Product",
-      "deleteProduct": "Delete Product",
-      "confirmDelete": "Are you sure you want to delete this product?",
-      "productName": "Product Name",
-      "price": "Price (BGN)",
-      "category": "Category",
-      "stock": "Stock",
-      "isHighlighted": "Is Highlighted",
-      "imageUrl": "Image URL",
-      "description": "Description",
-      "saveChanges": "Save Changes",
-      "actions": "Actions",
-      "cancel": "Cancel"
-    },
-    "categories": {
-      "title": "Categories",
-      "addCategory": "Add Category",
-      "noCategories": "No categories available.",
-      "editCategory": "Edit Category",
-      "deleteCategory": "Delete Category",
-      "confirmDelete": "Are you sure you want to delete this category?",
-      "categoryName": "Category Name",
-      "saveChanges": "Save Changes",
-      "cancel": "Cancel"
-    }
+  "notFound": {
+    "title": "Page Not Found",
+    "returnToHome": "Return to Home"
+  },
+  "about": {
+    "title": "Our Story",
+    "description": "For three generations, Tranj has been the heart of our community — delivering premium, ethically sourced meats with old-world craftsmanship.",
+    "legacy": "A Legacy of Excellence",
+    "legacyDescriptionOne": "Founded in 1999 by Atanas Stoyanov, our shop began as a small family operation with one simple promise: serve only the finest quality meats, prepared with care and integrity.",
+    "legacyDescriptionTwo": "Today, that promise lives on through the third generation of the family. While much has changed over the decades, our dedication to hand-selecting every cut and building genuine relationships with our customers and farmers remains the cornerstone of everything we do.",
+    "years": "Years in Business",
+    "products": "Products Offered",
+    "customers": "Happy Customers",
+    "gen": "Generations",
+    "stand": "What We Stand For",
+    "quality": "Every cut is hand-selected and graded to ensure premium quality that meets our exacting standards.",
+    "qualityTitle": "Quality First",
+    "community": "We've proudly served our local community for three generations, building lasting relationships with every customer.",
+    "communityTitle": "Community Roots",
+    "craft": "Our master butchers bring decades of experience and passion to every cut they prepare.",
+    "craftTitle": "Time-Honored Craft"
   }
 }

@@ -1,21 +1,23 @@
 "use client";
 
-import { CategoryType } from "@/schemas/categories.schema";
+import { CategoriesType } from "@/schemas/categories.schema";
 import { productsSearchParams } from "@/searchParams";
 import { Select, SelectItem } from "@heroui/select";
 import { ArrowDownUp, Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
+import { use } from "react";
 
 interface Props {
-  categories: CategoryType[];
+  categoriesPromise: Promise<CategoriesType>;
 }
 
-export default function FilterAndSort({ categories }: Props) {
+export default function FilterAndSort({ categoriesPromise }: Props) {
+  const { categories } = use(categoriesPromise);
   const t = useTranslations("products");
   const [categoryFilter, setCategoryFilter] = useQueryState(
     "categories",
-    productsSearchParams.categories
+    productsSearchParams.categories,
   );
   const [sortBy, setSortBy] = useQueryState("sort", productsSearchParams.sort);
 

@@ -6,3 +6,5 @@ export const HomepageSchema = z.object({
   products: z.array(ProductSchema),
   questions: z.array(QuestionSchema),
 });
+
+export type HomepageType = z.infer<typeof HomepageSchema>;

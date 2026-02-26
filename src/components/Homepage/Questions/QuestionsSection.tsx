@@ -1,18 +1,19 @@
 "use client";
 
 import Carousel from "@/components/Carousel/Carousel";
-import { QuestionAnswerType } from "@/schemas/questions.schema";
-import { Button } from "@heroui/button";
-import { ArrowRight, MessageCircleQuestion } from "lucide-react";
+import { MessageCircleQuestion } from "lucide-react";
 import QuestionAnswer from "./QuestionAnswer";
 import { useTranslations } from "next-intl";
 import QuestionButtons from "./Buttons";
+import { HomepageType } from "@/schemas/homepage.schema";
+import { use } from "react";
 
 interface Props {
-  questions: QuestionAnswerType[];
+  questionsPromise: Promise<HomepageType>;
 }
 
-export default function QuestionsSection({ questions }: Props) {
+export default function QuestionsSection({ questionsPromise }: Props) {
+  const { questions } = use(questionsPromise);
   const t = useTranslations("askButcher");
 
   return (
@@ -30,7 +31,7 @@ export default function QuestionsSection({ questions }: Props) {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto px-12">
+        <div className="max-w-4xl mx-auto lg:px-12">
           <Carousel
             slides={questions.map((qa) => ({
               id: qa.documentId,

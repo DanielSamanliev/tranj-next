@@ -36,7 +36,7 @@ export default function Carousel({
       <div className="flex gap-6 items-center">
         <ArrowButton
           aria-label="previous"
-          className="rotate-180"
+          className="rotate-180 not-md:hidden"
           onClick={onPrevButtonClick}
           disabled={prevBtnDisabled}
         />
@@ -58,6 +58,7 @@ export default function Carousel({
           aria-label="next"
           onClick={onNextButtonClick}
           disabled={nextBtnDisabled}
+          className="not-md:hidden"
         />
       </div>
 
@@ -70,7 +71,7 @@ export default function Carousel({
                 "h-1.5 rounded-full transition-all duration-300",
                 index === selectedIndex
                   ? "bg-secondary w-6"
-                  : "bg-secondary/40 w-1.5"
+                  : "bg-secondary/40 w-1.5",
               )}
             />
           ))}

@@ -1,19 +1,22 @@
 import { Link } from "@/i18n/navigation";
-import { CategoryType } from "@/schemas/categories.schema";
+import { CategoriesType } from "@/schemas/categories.schema";
 import { useTranslations } from "next-intl";
+import { use } from "react";
 
 interface Props {
-  categories: CategoryType[];
+  categoriesPromise: Promise<CategoriesType>;
 }
 
-export default function Categories({ categories }: Props) {
+export default function Categories({ categoriesPromise }: Props) {
+  const { categories } = use(categoriesPromise);
+
   const t = useTranslations("categories");
 
   return (
     <section className="py-16 px-4 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-3 ">
+          <h2 className="font-[Playfair] text-3xl md:text-4xl font-bold text-foreground mb-3">
             {t("title")}
           </h2>
           <p className="font-inter text-muted-foreground">{t("subtitle")}</p>

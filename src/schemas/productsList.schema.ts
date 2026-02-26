@@ -10,3 +10,5 @@ export const ProductsListSchema = z.object({
     }),
   }),
 });
+
+export type ProductsListType = z.infer<typeof ProductsListSchema>;

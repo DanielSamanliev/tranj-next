@@ -14,7 +14,7 @@ export const GET_HOMEPAGE_ITEMS = gql`
       price
       slug
     }
-    questions(locale: $locale) {
+    questions(locale: $locale, filters: { answer: { not: null } }) {
       documentId
       question
       answer

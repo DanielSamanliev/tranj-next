@@ -1,14 +1,17 @@
 import { QuestionAnswerType } from "@/schemas/questions.schema";
+import { useTranslations } from "next-intl";
 
 interface Props {
   questions: QuestionAnswerType[];
 }
 
 export default function Questions({ questions }: Props) {
+  const t = useTranslations("askButcher");
+
   return (
     <div id="questions">
       <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-        Previously Asked Questions
+        {t("previouslyAskedQuestions")}
       </h2>
       <div className="grid gap-6 md:grid-cols-2">
         {questions.map((question) => (
@@ -20,7 +23,7 @@ export default function Questions({ questions }: Props) {
               <h3 className="font-semibold text-lg text-foreground mb-3">
                 "{question.question}"
               </h3>
-              <p className="text-muted-foreground">{question.answer}</p>
+              <p className="text-foreground/95">{question.answer}</p>
             </div>
           </div>
         ))}

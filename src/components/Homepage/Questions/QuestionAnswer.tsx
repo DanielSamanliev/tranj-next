@@ -11,7 +11,7 @@ export default function QuestionAnswer({ questionAnswer }: Props) {
         <h3 className="font-semibold text-lg text-foreground mb-3">
           "{questionAnswer.question}"
         </h3>
-        <p className="text-muted-foreground text-sm grow">
+        <p className="text-foreground/95 text-sm grow">
           {questionAnswer.answer}
         </p>
       </div>

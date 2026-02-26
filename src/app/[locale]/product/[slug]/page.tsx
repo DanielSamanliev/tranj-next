@@ -42,9 +42,44 @@ export default async function ProductPage({
   }
 
   const tCommon = await getTranslations("common");
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://tranj.com";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description ?? product.longDescription ?? undefined,
+    image: product.image.url,
+    url: `${baseUrl}/${locale === "bg" ? "продукт" : "product"}/${decodedSlug}`,
+    offers: {
+      "@type": "Offer",
+      price: product.price.toFixed(2),
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Butcher",
+        "@id": `${baseUrl}/#business`,
+        name: "Tranj",
+      },
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: product.price.toFixed(2),
+        priceCurrency: "EUR",
+        referenceQuantity: {
+          "@type": "QuantitativeValue",
+          value: 1,
+          unitCode: "KGM",
+        },
+      },
+    },
+  };
 
   return (
     <main className="flex-1 py-12 px-4 bg-background @container">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-7xl mx-auto @lg:max-w-lg">
         <Back />
 

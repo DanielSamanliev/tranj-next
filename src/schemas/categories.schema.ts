@@ -12,4 +12,5 @@ export const CategoriesSchema = z.object({
   categories: z.array(CategorySchema),
 });
 
+export type CategoriesType = z.infer<typeof CategoriesSchema>;
 export type CategoryType = z.infer<typeof CategorySchema>;

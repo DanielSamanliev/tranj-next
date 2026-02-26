@@ -1,8 +1,11 @@
 import { useTranslations } from "next-intl";
 import ProductCard from "@/components/Card/ProductCard";
-import { ProductType } from "@/schemas/product.schema";
+import { HomepageType } from "@/schemas/homepage.schema";
+import { use } from "react";
 
-export const FeaturedSelection = ({ featuredProducts }: Props) => {
+export const FeaturedSelection = ({ featuredProductsPromise }: Props) => {
+  const { products: featuredProducts } = use(featuredProductsPromise);
+
   const t = useTranslations("featured");
 
   if (featuredProducts.length === 0) {
@@ -13,10 +16,10 @@ export const FeaturedSelection = ({ featuredProducts }: Props) => {
     <section className="py-20 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-['Playfair']">
+          <h2 className="font-[Playfair] text-4xl md:text-5xl font-bold text-foreground mb-4">
             {t("title")}
           </h2>
-          <p className="text-2xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="font-inter text-lg text-muted-foreground max-w-2xl mx-auto">
             {t("subtitle")}
           </p>
         </div>
@@ -32,5 +35,5 @@ export const FeaturedSelection = ({ featuredProducts }: Props) => {
 };
 
 interface Props {
-  featuredProducts: ProductType[];
+  featuredProductsPromise: Promise<HomepageType>;
 }

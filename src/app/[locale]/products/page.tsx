@@ -1,4 +1,5 @@
 import { gqlRequestStrapi } from "@/api/gqlRequestStrapi";
+import Loader from "@/components/Loader";
 import FilterAndSort from "@/components/Products/FilterAndSort";
 import Products from "@/components/Products/Products";
 import { GET_CATEGORIES } from "@/queries/categories";
@@ -8,6 +9,7 @@ import { ProductsListSchema } from "@/schemas/productsList.schema";
 import { loadSearchparams } from "@/searchParams";
 import { setRequestLocale } from "next-intl/server";
 import { cacheLife, cacheTag } from "next/cache";
+import { Suspense } from "react";
 
 export async function getCategories(locale: string) {
   "use cache";
@@ -17,7 +19,7 @@ export async function getCategories(locale: string) {
   const result = await gqlRequestStrapi(
     GET_CATEGORIES,
     { locale },
-    CategoriesSchema
+    CategoriesSchema,
   );
   return result;
 }
@@ -26,7 +28,7 @@ async function getProducts(
   locale: string,
   page: number,
   categories: string[],
-  sort?: string | null
+  sort?: string | null,
 ) {
   "use cache";
   cacheLife("hours");
@@ -38,12 +40,12 @@ async function getProducts(
       locale,
       page,
       filters:
-        categories.length > 0
+        categories && categories.length > 0
           ? { category: { title: { in: categories } } }
           : undefined,
       sort: sort ?? undefined,
     },
-    ProductsListSchema
+    ProductsListSchema,
   );
   return result;
 }
@@ -58,20 +60,24 @@ export default async function ProductsPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const productParams = await loadSearchparams(searchParams);
+  const productParams = loadSearchparams(searchParams);
 
-  const products = await getProducts(
+  const products = getProducts(
     locale,
     1,
     productParams.categories,
-    productParams.sort
+    productParams.sort,
   );
-  const categories = await getCategories(locale);
+  const categories = getCategories(locale);
 
   return (
     <>
-      <FilterAndSort categories={categories.categories} />
-      <Products products={products.products_connection.nodes} />
+      <Suspense fallback={<Loader />}>
+        <FilterAndSort categoriesPromise={categories} />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <Products productsPromise={products} />
+      </Suspense>
     </>
   );
 }

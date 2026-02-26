@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const GET_QUESTIONS = gql`
   query getQuestions($locale: I18NLocaleCode!) {
-    questions(locale: $locale) {
+    questions(locale: $locale, filters: { answer: { not: null } }) {
       documentId
       question
       answer

@@ -1,13 +1,38 @@
+import Loader from "@/components/Loader";
 import { Map } from "@/components/Map";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 
-export default function ContactsPage() {
-  const t = useTranslations("contacts");
+export default async function ContactsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: "contacts" });
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://tranj.com";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Tranj - Contact Us",
+    url: `${baseUrl}/${locale === "bg" ? "контакти" : "en/contacts"}`,
+    mainEntity: {
+      "@type": "Butcher",
+      "@id": `${baseUrl}/#business`,
+    },
+  };
 
   return (
     <main className="flex-1 py-20 px-4 @container">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="@lg:max-w-lg mx-auto">
         <h1 className="font-[Playfair] text-foreground text-4xl md:text-5xl font-bold text-center mb-4">
           {t("title")}
@@ -104,7 +129,13 @@ export default function ContactsPage() {
             </div>
           </div>
 
-          <Suspense fallback={<div className="h-[400px]">Loading map...</div>}>
+          <Suspense
+            fallback={
+              <div className="h-[400px] flex justify-center items-center w-full">
+                <Loader />
+              </div>
+            }
+          >
             <Map t={t} />
           </Suspense>
         </div>

@@ -1,6 +1,7 @@
 import { gqlRequestStrapi } from "@/api/gqlRequestStrapi";
 import AskQuestion from "@/components/AskButcher/AskQuestion";
 import Questions from "@/components/AskButcher/Questions";
+import Loader from "@/components/Loader";
 import { GET_QUESTIONS } from "@/queries/questions";
 import { QuestionsSchema } from "@/schemas/questions.schema";
 import { MessageCircleQuestion } from "lucide-react";
@@ -17,7 +18,7 @@ async function getQuestions(locale: Locale) {
   const res = await gqlRequestStrapi(
     GET_QUESTIONS,
     { locale },
-    QuestionsSchema
+    QuestionsSchema,
   );
 
   if (!res.questions) {
@@ -38,8 +39,25 @@ export default async function AskPage({
 
   const questions = await getQuestions(locale);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: questions.map((q) => ({
+      "@type": "Question",
+      name: q.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: q.answer,
+      },
+    })),
+  };
+
   return (
     <main className="pt-24 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -53,7 +71,13 @@ export default async function AskPage({
           </p>
         </div>
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="flex justify-center my-16">
+              <Loader />
+            </div>
+          }
+        >
           <AskQuestion />
         </Suspense>
 

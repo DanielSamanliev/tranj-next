@@ -4,13 +4,14 @@ import { ZodType } from "zod";
 export async function gqlRequestStrapi<T>(
   query: DocumentNode,
   variables = {},
-  schema: ZodType<T>
+  schema: ZodType<T>,
+  token?: string,
 ) {
   const res = await fetch(process.env.NEXT_STRAPI_API_URL!, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.NEXT_STRAPI_API_TOKEN}`,
+      Authorization: `Bearer ${token || process.env.NEXT_STRAPI_API_TOKEN}`,
     },
     body: JSON.stringify({
       query: print(query),
